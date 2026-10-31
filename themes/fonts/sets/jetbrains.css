@@ -1,0 +1,7 @@
+/* jetbrains — mono: JetBrains Mono */
+@import url("../jetbrains-mono/font.css");
+
+.resume {
+  --font-body: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}

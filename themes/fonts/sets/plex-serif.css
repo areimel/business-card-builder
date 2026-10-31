@@ -1,0 +1,7 @@
+/* plex-serif — serif: IBM Plex Serif */
+@import url("../ibm-plex-serif/font.css");
+
+.resume {
+  --font-body: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --font-heading: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+}

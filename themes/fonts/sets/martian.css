@@ -1,0 +1,9 @@
+/* martian — mono: Martian Mono on its width axis (condensed body, wide name) */
+@import url("../martian-mono/font.css");
+
+.resume {
+  --font-body: "Martian Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: "Martian Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-stretch: 87.5%;
+}
+.resume .name-heading { font-stretch: 112.5%; }

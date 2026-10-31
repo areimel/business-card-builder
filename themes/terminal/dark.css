@@ -1,0 +1,16 @@
+/* terminal dark palette — linked by render.js after theme.css when mode is dark.
+   Overrides only custom properties; no rules of its own beyond the QR tile. */
+
+html[data-mode="dark"] body {
+  --ink: #d7e3d9;
+  --paper: #0b0f0c;
+  --rule: #3fb950;       /* terminal green borders */
+  --accent: #56d364;     /* h1, bold labels, bullets */
+  --muted-ink: #8b9a8f;
+  --sheet-bg: var(--paper);
+  --body-weight: 350;    /* light-on-dark text spreads; variable faces thin it */
+  /* Dark-on-light QR tile: inverted codes fail on many scanners */
+  --qr-fg: #0b0f0c;
+  --qr-bg: #fff;
+}
+html[data-mode="dark"] .resume .qr-img { padding: 3px; box-sizing: border-box; }

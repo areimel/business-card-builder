@@ -1,0 +1,7 @@
+/* newsreader — serif: Newsreader */
+@import url("../newsreader/font.css");
+
+.resume {
+  --font-body: Newsreader, Georgia, "Times New Roman", serif;
+  --font-heading: Newsreader, Georgia, "Times New Roman", serif;
+}

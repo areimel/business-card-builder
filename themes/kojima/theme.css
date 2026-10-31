@@ -1,0 +1,225 @@
+/* ============================================================
+   kojima — editorial "signal research bureau" print theme.
+   Warm paper, near-black ink, one hot-orange accent, square
+   corners, hairline shared rules, tiny mono tracked labels.
+   Palette lives on `body`; every rule keys off `article.resume`,
+   so dark.css overrides the vars under html[data-mode="dark"]
+   without importing this file.
+   ============================================================ */
+@import url("layout.css"); /* kojima's own layout rules (formerly base.css) */
+@import url("components.css"); /* styles for themes/kojima/components */
+@import url("letter.css"); /* cover-letter components (Letter, SignOff, StatStack) */
+
+
+body {
+  --ink: #141310;
+  --paper: #efebe0;
+  --card: #f8f5ed;
+  --muted-ink: #625e53;
+  --muted-fill: #e1dccf;
+  --rule: #c4beaf;
+  --accent: #ff4d00;
+  --accent-text: var(--accent); /* accent text matches the QR orange */
+  --font-body: "DM Sans", ui-sans-serif, system-ui, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-body);
+  --font-label: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+  --body-weight: 400;
+  --sheet-bg: var(--paper);
+  --rule-w: 1px;
+  --box-border: var(--rule-w) solid var(--rule);
+  --sidebar-w: 2.15in;
+  --layout-gap: 0;
+  --qr-fg: #141310;
+  --qr-bg: var(--accent);
+  --qr-cell-bg: var(--accent);
+  --qr-label: var(--ink);
+  --page-inset: 0.22in; /* inner padding; theme.json sets no page margin, so paper runs to the edge */
+  /* Type scale: one knob per tier */
+  --body-size: 10.2px;
+  --name-size: 34px;
+  --role-size: 12.5px;
+  --label-size: 8px;     /* mono tracked labels: headings, contact, QR */
+  --kicker-size: 10.5px;     /* section kickers ("01 / SKILLS") */
+  --plate-size: 7.5px;       /* plate strip, figure captions */
+  --letter-size: 12px;       /* cover-letter body text */
+}
+
+article.resume {
+  font-family: var(--font-body);
+  font-weight: var(--body-weight);
+  font-size: var(--body-size);
+  line-height: 1.38;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* Inset each <Page> (padding on .resume would only reach the first/last
+   printed page); border-box keeps .page at exactly the printable height. */
+.resume .page,
+article.resume:not(:has(> .page)) { padding: var(--page-inset); }
+
+.resume p { margin: 0 0 5px; }
+.resume strong { font-weight: 600; color: var(--ink); }
+.resume a { text-decoration: none; color: inherit; }
+.resume .muted, .resume .date-range { color: var(--muted-ink); opacity: 1; }
+
+/* ---- Header band ---------------------------------------- */
+.resume .page-header {
+  border: var(--box-border);
+  border-top: 3px solid var(--accent);
+  background: var(--card);
+  margin-bottom: calc(-1 * var(--rule-w));
+  padding: 0;
+}
+.resume .name-heading {
+  margin: 0;
+  padding: 8px 10px 6px;
+  font-family: var(--font-heading);
+  font-size: var(--name-size);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  color: var(--ink);
+  border-bottom: var(--box-border);
+}
+.resume .name-title {
+  font-size: var(--name-size);
+  font-weight: 700;
+  color: var(--accent-text);
+}
+.resume .page-header .contact-line { padding: 6px 10px 7px; }
+.resume .contact-field .label,
+.resume .contact-field .label strong {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+
+.resume .meta p { margin: 0 0 2px; }
+.resume .meta p:last-child { margin-bottom: 0; }
+.resume .role > .meta { margin-bottom: 5px; }
+
+/* QR cell */
+.resume .page-header > .qr-code {
+  --qr-size: 0.92in;
+  position: relative;
+  z-index: 1; /* paint over the next row's top border, which overlaps the header bottom */
+  /* Borders take the cell color; negative margins cover the header's right + bottom rule */
+  border: var(--rule-w) solid var(--qr-cell-bg);
+  border-top: 0;
+  margin: 0 calc(-1 * var(--rule-w)) calc(-1 * var(--rule-w)) 0;
+  padding: 6px 10px;
+  color: var(--ink);
+  background: var(--qr-cell-bg);
+}
+.resume .qr-img { padding: 3px; box-sizing: border-box; }
+.resume .qr-label {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--qr-label);
+}
+
+/* ---- Sidebar -------------------------------------------- */
+.resume .sidebar {
+  border: var(--box-border);
+  padding: 6px 8px;
+}
+.resume .sidebar:has(> .box) { border: 0; padding: 0; }
+.resume .main { margin-left: calc(-1 * var(--rule-w)); }
+.resume .sidebar ul,
+.resume .sidebar .box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.resume .sidebar li,
+.resume .sidebar .box li {
+  position: relative;
+  margin: 0 0 7px;
+  padding-left: 11px;
+  overflow-wrap: anywhere;
+}
+.resume .sidebar li:last-child,
+.resume .sidebar .box li:last-child { margin-bottom: 0; }
+.resume .sidebar li::before,
+.resume .sidebar .box li::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 0.5em;
+  width: 3.5px;
+  height: 3.5px;
+  background: var(--accent);
+}
+
+/* ---- Boxes ---------------------------------------------- */
+.resume .box { padding: 6px 9px 7px; border: var(--box-border); background: var(--card); }
+.resume .sidebar:has(> .box) .box { background: var(--paper); }
+.resume .box + .box,
+.resume .sidebar-layout + .box {
+  margin-top: calc(-1 * var(--rule-w));
+}
+.resume .box ul { margin: 2px 0 6px; padding: 0; list-style: none; }
+.resume .box li { position: relative; margin: 0 0 5px; padding-left: 14px; }
+.resume .box li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.5em;
+  width: 3.5px;
+  height: 3.5px;
+  background: var(--accent);
+}
+.resume .box li > p { margin: 0; }
+.resume .box > p:last-child { margin-bottom: 0; }
+.resume .box > ul:last-child { margin-bottom: 0; }
+
+/* ---- Headings & labels ---------------------------------- */
+.resume .cell-heading,
+.resume .cell-subheading {
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+.resume .cell-heading {
+  margin: 0 0 5px;
+  padding-bottom: 3px;
+  border-bottom: var(--box-border);
+}
+.resume .cell-subheading { margin: 0 0 3px; }
+.resume .cell-heading .label,
+.resume .cell-subheading .label,
+.resume .page-note .label {
+  font-family: inherit;
+  font-weight: 500;
+  color: inherit;
+}
+.resume .label { font-weight: 600; color: var(--ink); }
+
+/* ---- Component hooks ------------------------------------ */
+.resume .job-role-heading {
+  font-size: var(--role-size);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.resume .job-role-heading strong { font-weight: 700; }
+.resume .job-role-list + .job-role-list { margin-top: 3px; }
+.resume .page-note,
+.resume .page-note .cell-heading {
+  font-family: var(--font-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.resume .page-note .cell-heading { border-bottom: 0; padding-bottom: 0; margin: 0; }
+.resume .page-note strong { color: var(--accent-text); }

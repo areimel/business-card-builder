@@ -1,0 +1,8 @@
+{
+  "name": "Kojima",
+  "description": "Editorial signal-bureau look: warm paper, ink, one orange accent, mono tracked labels.",
+  "mode": "light",
+  "fonts": "kojima",
+  "margin": "0",
+  "fontSets": ["kojima", "geist", "plex", "jetbrains"]
+}

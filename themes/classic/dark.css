@@ -1,0 +1,25 @@
+/* classic dark — palette overrides only (linked after theme.css when mode=dark).
+   classic colors everything via --classic-* vars (ink/muted/rule/link feed the
+   text, h3, markers, rules, header border, .muted, .date-range, .contact-line,
+   links and --box-border), so redefining them covers every color-bearing rule.
+   Warm off-black paper, off-white ink; link is the original blue, lightened. */
+html[data-mode="dark"] .theme-classic {
+  --classic-ink: #ebe5d8;     /* 14.0:1 on paper */
+  --classic-muted: #aea696;   /* 7.3:1 on paper */
+  --classic-rule: #4a453b;    /* hairlines */
+  --classic-link: #8db3e6;    /* #1f4e8c lifted for dark */
+  --sheet-bg: #1b1916;
+}
+
+/* Serif strokes thin out light-on-dark; Source Serif 4 is a variable face */
+html[data-mode="dark"] .theme-classic .resume { font-weight: 420; }
+
+/* Dark-on-light QR tile: inverted codes fail on many scanners */
+html[data-mode="dark"] .theme-classic {
+  --qr-fg: #1b1916;
+  --qr-bg: #fff;
+}
+html[data-mode="dark"] .theme-classic .resume .qr-img {
+  padding: 3px;
+  box-sizing: border-box;
+}

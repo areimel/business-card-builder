@@ -1,0 +1,7 @@
+/* geist — mono: Geist Mono */
+@import url("../geist-mono/font.css");
+
+.resume {
+  --font-body: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+}

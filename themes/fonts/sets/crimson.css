@@ -1,0 +1,7 @@
+/* crimson — serif: Crimson Pro */
+@import url("../crimson-pro/font.css");
+
+.resume {
+  --font-body: "Crimson Pro", Georgia, "Times New Roman", serif;
+  --font-heading: "Crimson Pro", Georgia, "Times New Roman", serif;
+}

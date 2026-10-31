@@ -1,0 +1,139 @@
+/* ============================================================
+   base.css — the theme-neutral page contract for ALL themes.
+   Owns: page geometry, print rules, screen page cards, explicit
+   pages (.page/.fill/.page-break) and the core <QR> element.
+   Themes own everything else: each theme's layout.css styles its
+   own components (sidebar-layout, box, meta…), theme.css adds
+   typography/color, dark.css the dark palette.
+   Themes must NOT declare @page (server injects it) and must
+   not restyle .sheet geometry — override via --sheet-bg.
+   ============================================================ */
+
+:root {
+  /* Defaults; /render/:slug injects actual values on html:root (wins over these) */
+  --page-w: 8.5in;
+  --page-h: 11in;
+  --page-mt: 0.5in;
+  --page-mr: 0.5in;
+  --page-mb: 0.5in;
+  --page-ml: 0.5in;
+
+  --sheet-bg: #fff;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+body {
+  margin: 0;
+  background: #4b4f57; /* screen backdrop behind the sheet */
+  display: flex;
+  justify-content: center;
+  padding: 28px 16px 72px;
+}
+
+/* ---- The page surface -------------------------------------- */
+
+.sheet {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--page-w);
+  min-height: var(--page-h);
+  padding: var(--page-mt) var(--page-mr) var(--page-mb) var(--page-ml);
+  background: var(--sheet-bg);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ---- Page cards (screen only; server/preview-script.js builds them)
+   Each card shows one page's slice of a clone of the measured .sheet. */
+@media screen {
+  html.embedded { color-scheme: dark; background: transparent; } /* match the app's scheme or Chrome paints the iframe opaque */
+  html.embedded body { background: transparent; padding: 28px 0 48px; }
+  body.paged > .sheet { position: absolute; visibility: hidden; pointer-events: none; }
+  .page-cards { display: flex; flex-direction: column; gap: 36px; }
+  .page-card {
+    position: relative;
+    width: var(--page-w);
+    height: var(--page-h);
+    padding-top: var(--page-mt);
+    background: var(--sheet-bg);
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.45);
+  }
+  .page-card::before {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    padding-bottom: 6px;
+    font: 600 10px/1.6 system-ui, sans-serif;
+    color: rgba(200, 205, 215, 0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .page-card.overflow { outline: 2px solid rgba(231, 76, 60, 0.85); }
+  .page-card.overflow::before { color: rgba(231, 76, 60, 0.95); }
+  .page-window { overflow: hidden; }
+  .page-window > .sheet { box-shadow: none; min-height: 0; background: none; }
+}
+
+/* ---- Break utilities ---------------------------------------- */
+
+.avoid-break { break-inside: avoid; }
+.page-break { break-before: page; }
+
+/* QR link: <a.qr-code><svg.qr-img/><span.qr-label/></a>. Themes set
+   --qr-size / --qr-fg / --qr-bg (keep dark-on-light for scanners). */
+.qr-code {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-decoration: none;
+  break-inside: avoid;
+}
+.qr-img {
+  display: block;
+  width: var(--qr-size, 0.9in);
+  height: auto;
+  color: var(--qr-fg, currentColor);
+  background: var(--qr-bg, transparent);
+}
+
+/* ---- Explicit pages: <Page> fills the printable area --------
+   Each .page is at least one page tall (min-height: overflow stays
+   visible, never clipped); later pages break automatically. The
+   .fill child — or the last child when none is marked — grows. */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(var(--page-h) - var(--page-mt) - var(--page-mb) - 1px);
+}
+.page + .page { break-before: page; }
+.page > .fill,
+.page:not(:has(> .fill)) > :last-child { flex: 1 0 auto; }
+
+/* ---- Print: @page (injected by server) takes over margins --- */
+
+@media print {
+  body {
+    /* Body background becomes the printed page background, covering the
+       @page margin area and the tail of the last page (parity with the
+       preview's full-sheet background — matters for dark themes). */
+    background: var(--sheet-bg);
+    display: block;
+    padding: 0;
+  }
+  .sheet {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    background: var(--sheet-bg);
+    box-shadow: none;
+  }
+  .page-cards { display: none; }
+}

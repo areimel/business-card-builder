@@ -1,0 +1,7 @@
+{
+  "name": "Classic",
+  "description": "Traditional serif resume — clean, roomy, ATS-friendly.",
+  "mode": "light",
+  "fonts": "source",
+  "fontSets": ["source", "garamond", "plex-serif", "newsreader", "crimson"]
+}

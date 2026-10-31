@@ -1,0 +1,53 @@
+/* Kojima cover-letter hooks: letter box, date, recipient, parts, sign-off, stat stack. */
+.resume .letter {
+  padding: 0.2in 0.28in;
+  font-size: var(--letter-size, 11px);
+  line-height: 1.5;
+}
+.resume .letter p { margin: 0 0 0.6em; }
+
+.resume .letter-date,
+.resume .sign-off-title {
+  font-family: var(--font-label, var(--font-body));
+  font-size: var(--label-size);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-ink);
+}
+.resume .letter-date { margin: 0 0 1.1em; }
+
+.resume .letter-recipient { margin: 0 0 1.1em; color: var(--muted-ink); }
+.resume .letter-recipient p { margin: 0; line-height: 1.4; }
+.resume .recipient-name { font-weight: 700; color: var(--ink); }
+
+.resume .salutation { margin: 0 0 0.9em; font-weight: 600; color: var(--ink); }
+
+.resume .letter-part { padding: 0.7em 0; }
+.letter-part:first-of-type { padding-top: 0; }
+.letter-part + .letter-part { border-top: 1px dashed var(--rule); }
+.resume .letter-part-kicker { margin: 0 0 0.45em; padding-bottom: 0; border-bottom: 0; }
+.letter-part-body > :last-child { margin-bottom: 0; }
+
+.resume .sign-off { margin-top: 1.4em; }
+.resume .sign-off-closing { margin: 0 0 1.1em; }
+.resume .sign-off-name {
+  display: inline-block;
+  margin: 0;
+  padding-top: 0.45em;
+  border-top: 3px solid var(--accent);
+  font-family: var(--font-heading);
+  font-size: var(--role-size);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.resume .sign-off-title { margin: 0.3em 0 0; }
+
+.stat-stack {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 7px;
+  border: var(--box-border);
+  background: var(--paper);
+}
+.stat-stack .stat + .stat { border-left: 0; border-top: var(--box-border); }

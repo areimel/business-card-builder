@@ -1,0 +1,101 @@
+/* ============================================================
+   layout.css — classic's own layout for its components.
+   base.css owns only page geometry, print rules, page cards,
+   .page/.fill/.page-break and the QR core; everything else is here.
+   @import'ed first in theme.css so theme rules still win.
+   ============================================================ */
+
+:root {
+  --sidebar-w: 2.3in;
+  --layout-gap: 0.22in;
+  --box-border: 1px solid #1a1a1a;
+
+  /* Metadata text (.meta): body font, sized/spaced by these */
+  --meta-size: 0.92em;
+  --meta-lh: 1.2;
+}
+
+.resume img { max-width: 100%; }
+.resume a { color: inherit; }
+
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  gap: var(--layout-gap);
+  align-items: start;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--layout-gap);
+}
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1.5in, 1fr));
+  gap: 4px 12px;
+}
+
+.box {
+  border: var(--box-border);
+  padding: 0.1in 0.12in;
+  break-inside: avoid;
+}
+
+.date-range {
+  opacity: 0.75;
+  font-size: 0.92em;
+  white-space: nowrap;
+}
+
+.muted { opacity: 0.7; }
+
+/* Metadata lines: <Meta>, <Contact>, and <Role>'s Duration/Sub-Roles/Client Types */
+.meta {
+  font-size: var(--meta-size);
+  line-height: var(--meta-lh);
+}
+.meta p { margin: 0 0 2px; }
+.meta p:last-child { margin-bottom: 0; }
+
+/* <ContactField> items on one line, separated by " // "; <ExperienceItem> entries */
+.contact-field + .contact-field::before { content: " // "; }
+.experience-item { break-inside: avoid; }
+.experience-item + .experience-item { margin-top: 8px; }
+
+/* Header with a QR child: text column left, QR cell spanning full height right */
+.page-header:has(> .qr-code) {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.page-header:has(> .qr-code) > :not(.qr-code) { grid-column: 1; }
+.page-header > .qr-code {
+  grid-column: 2;
+  grid-row: 1 / span 99;
+  justify-content: center;
+}
+
+/* <Page> fill: a .sidebar-layout inside a page stretches its columns, and
+   the .fill cell (or last cell) of each column grows. */
+.page .sidebar-layout { align-items: stretch; }
+.page .sidebar,
+.page .main {
+  display: flex;
+  flex-direction: column;
+}
+.page .sidebar > .fill,
+.page .main > .fill,
+.page .sidebar:not(:has(> .fill)) > :last-child,
+.page .main:not(:has(> .fill)) > :last-child { flex: 1 0 auto; }
+
+/* Kill stray first/last margins inside structural containers */
+.box > :first-child,
+.sidebar > :first-child,
+.main > :first-child,
+.page-header > :first-child { margin-top: 0; }
+
+.box > :last-child,
+.sidebar > :last-child,
+.main > :last-child,
+.page-header > :last-child { margin-bottom: 0; }

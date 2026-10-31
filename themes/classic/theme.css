@@ -1,0 +1,140 @@
+@import url("layout.css");
+/* ============================================================
+   classic — traditional serif resume.
+   Headings: small-caps serif with hairline rule. Body: the font set's serif.
+   Layout lives in layout.css (imported above); this file is character only.
+   ============================================================ */
+
+.theme-classic {
+  --classic-ink: #1a1a1a;
+  --classic-muted: #555;
+  --classic-rule: #ccc;
+  --classic-link: #1f4e8c;
+  /* Fonts come from a font set (themes/fonts/sets/, picked by render.js);
+     these are the last-resort fallbacks if none loads. */
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-heading: var(--font-body);
+  --box-border: 1px solid var(--classic-rule);
+  --layout-gap: 0.3in;
+}
+
+.theme-classic .resume {
+  font-family: var(--font-body);
+  font-size: 10.5pt;
+  line-height: 1.4;
+  color: var(--classic-ink);
+  font-variant-ligatures: common-ligatures;
+  hyphens: manual;
+}
+
+/* ---- Headings ------------------------------------------------ */
+
+.theme-classic .resume :is(h1, h2, h3) { font-family: var(--font-heading); }
+
+.theme-classic .resume h1 {
+  margin: 0 0 2px;
+  font-size: 25pt;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.theme-classic .resume h2 {
+  margin: 16px 0 7px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--classic-rule);
+  font-size: 11.5pt;
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  break-after: avoid;
+}
+
+.theme-classic .resume h3 {
+  margin: 10px 0 4px;
+  font-size: 10.5pt;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--classic-muted);
+  break-after: avoid;
+}
+
+/* ---- Text ---------------------------------------------------- */
+
+.theme-classic .resume p { margin: 0 0 6px; }
+.theme-classic .resume .meta p { margin: 0 0 2px; }
+.theme-classic .resume .role > .meta { margin-bottom: 6px; }
+
+.theme-classic .resume strong { font-weight: 700; }
+.theme-classic .resume em { font-style: italic; }
+
+.theme-classic .resume a {
+  color: var(--classic-link);
+  text-decoration: none;
+}
+
+.theme-classic .resume a:hover { text-decoration: underline; }
+
+/* ---- Lists --------------------------------------------------- */
+
+.theme-classic .resume ul {
+  margin: 3px 0 6px;
+  padding-left: 1.2em;
+}
+
+.theme-classic .resume ul ul,
+.theme-classic .resume .experience-item > ul {
+  margin: 2px 0 3px;
+  padding-left: 1.15em;
+  list-style-type: circle;
+}
+
+.theme-classic .resume ul ul ul,
+.theme-classic .resume .experience-item ul ul { list-style-type: square; }
+
+.theme-classic .resume li {
+  margin: 0 0 2.5px;
+  padding-left: 0.1em;
+  break-inside: avoid;
+}
+
+.theme-classic .resume li > p { margin: 0 0 2px; }
+.theme-classic .resume > ul > li { margin-bottom: 8px; }
+
+.theme-classic .resume li::marker { color: var(--classic-muted); }
+
+/* ---- Experience items (<ExperienceItem>; sub-lists share the ul ul rules) */
+
+.theme-classic .resume .experience-item { padding-left: 1.2em; }
+.theme-classic .resume .experience-item > p { margin: 0 0 2px; }
+
+/* ---- Header & utilities -------------------------------------- */
+
+.theme-classic .page-header {
+  margin-bottom: 4px;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--classic-ink);
+}
+
+.theme-classic .page-header .columns { align-items: end; }
+
+.theme-classic .page-header p {
+  margin: 0;
+  font-size: 10.5pt;
+  line-height: 1.5;
+}
+
+.theme-classic .page-header .meta p { font-size: inherit; line-height: inherit; }
+
+.theme-classic .page-header .contact-right { text-align: right; }
+
+.theme-classic .contact-line { color: var(--classic-muted); }
+
+.theme-classic .date-range {
+  color: var(--classic-muted);
+  font-style: italic;
+  opacity: 1;
+}
+
+.theme-classic .muted { color: var(--classic-muted); opacity: 1; }

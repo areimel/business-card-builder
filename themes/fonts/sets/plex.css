@@ -1,0 +1,7 @@
+/* plex — mono: IBM Plex Mono (max weight 700) */
+@import url("../ibm-plex-mono/font.css");
+
+.resume {
+  --font-body: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}

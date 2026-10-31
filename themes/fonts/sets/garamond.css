@@ -1,0 +1,7 @@
+/* garamond — serif: EB Garamond */
+@import url("../eb-garamond/font.css");
+
+.resume {
+  --font-body: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-heading: "EB Garamond", Georgia, "Times New Roman", serif;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Terminal",
+  "description": "Dense monospace with boxed sections — the Figma design.",
+  "mode": "light",
+  "fonts": "jetbrains",
+  "fontSets": ["jetbrains", "plex", "geist", "martian", "retro"]
+}

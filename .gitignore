@@ -1,0 +1,9 @@
+node_modules/
+dist/
+exports/
+*.log
+.DS_Store
+
+.env
+
+brag-output/

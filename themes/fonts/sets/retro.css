@@ -1,0 +1,8 @@
+/* retro — mono: Space Mono headings, Fira Code body */
+@import url("../space-mono/font.css");
+@import url("../fira-code/font.css");
+
+.resume {
+  --font-body: "Fira Code", ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: "Space Mono", ui-monospace, Menlo, Consolas, monospace;
+}

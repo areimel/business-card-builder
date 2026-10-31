@@ -1,0 +1,145 @@
+@import url("layout.css");
+
+/* ============================================================
+   terminal — dense all-monospace, boxed sections (Figma design).
+   Palette lives in custom properties on `body`, and every rule is
+   scoped under `article.resume`. Dark mode is dark.css, which
+   overrides the same properties under html[data-mode="dark"]
+   (it does not import this file).
+   ============================================================ */
+
+body {
+  --ink: #111;
+  --paper: #fff;
+  --rule: #111;          /* border colour */
+  --accent: #111;        /* h1 + labels */
+  --muted-ink: #555;
+  /* Fonts come from a font set (themes/fonts/sets/, picked by render.js);
+     these are the last-resort fallbacks if none loads. */
+  --font-body: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-heading: var(--font-body);
+  --body-weight: 400;
+  --sheet-bg: var(--paper);
+  --rule-w: 2px;         /* cells overlap by this to share one border */
+  --box-border: var(--rule-w) solid var(--rule);
+  --sidebar-w: 2.15in;
+  --layout-gap: 0;       /* gapless grid: adjacent cells collapse borders */
+}
+
+article.resume {
+  font-family: var(--font-body);
+  font-weight: var(--body-weight);
+  font-size: 8.8px;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.resume p { margin: 0 0 5px; }
+.resume strong { font-weight: 700; color: var(--accent); }
+.resume a { text-decoration: none; }
+.resume .muted, .resume .date-range { color: var(--muted-ink); opacity: 1; }
+
+/* ---- Header band ---------------------------------------- */
+.resume .page-header {
+  border: var(--box-border);
+  margin-bottom: calc(-1 * var(--rule-w));
+  padding: 0;
+}
+.resume .name-heading {
+  margin: 0;
+  padding: 7px 10px 6px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  border-bottom: var(--box-border);
+}
+.resume .name-title { font-weight: 500; }
+.resume .page-header .contact-line { padding: 6px 10px 7px; }
+
+/* Metadata (.meta): tighter rhythm than body paragraphs, gap before what follows */
+.resume .meta p { margin: 0 0 2px; }
+.resume .meta p:last-child { margin-bottom: 0; }
+.resume .role > .meta { margin-bottom: 5px; }
+
+/* QR cell: full-height right column of the header, divided by the box border */
+.resume .page-header > .qr-code {
+  --qr-size: 0.92in;
+  border-left: var(--box-border);
+  padding: 6px 10px;
+  color: var(--accent);
+}
+.resume .qr-label {
+  font-weight: 700;
+  font-size: 1.1em;
+  line-height: 1.2;
+  color: var(--accent);
+}
+
+/* ---- Sidebar: one tall bordered column of bullet groups,
+   or (when it holds <Box>es) a stack of collapsed cells --- */
+.resume .sidebar {
+  border: var(--box-border);
+  padding: 6px 8px;
+}
+.resume .sidebar:has(> .box) { border: 0; padding: 0; }
+.resume .main { margin-left: calc(-1 * var(--rule-w)); }
+.resume .sidebar ul,
+.resume .sidebar .box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.resume .sidebar li,
+.resume .sidebar .box li {
+  position: relative;
+  margin: 0 0 7px;
+  padding-left: 11px;
+  overflow-wrap: anywhere;
+}
+.resume .sidebar li:last-child,
+.resume .sidebar .box li:last-child { margin-bottom: 0; }
+.resume .sidebar li::before,
+.resume .sidebar .box li::before {
+  content: "\25AA";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* ---- Boxes ---------------------------------------------- */
+.resume .box {
+  padding: 6px 9px 7px;
+}
+/* Stacked cells share one border (main, sidebar, top level, pages) */
+.resume .box + .box,
+.resume .sidebar-layout + .box {
+  margin-top: calc(-1 * var(--rule-w));
+}
+.resume .box ul {
+  margin: 2px 0 6px;
+  padding: 0;
+  list-style: none;
+}
+.resume .box li {
+  position: relative;
+  margin: 0 0 5px;
+  padding-left: 14px;
+}
+.resume .box li::before {
+  content: "\25AA";
+  position: absolute;
+  left: 3px;
+  color: var(--accent);
+}
+.resume .box li > p { margin: 0; }
+.resume .box > p:last-child { margin-bottom: 0; }
+.resume .box > ul:last-child { margin-bottom: 0; }
+
+/* ---- Component hooks ------------------------------------ */
+.resume .job-role-heading { font-size: 1.1em; }
+.resume .job-role-list + .job-role-list { margin-top: 3px; }
+.resume .page-note strong { color: var(--muted-ink); }

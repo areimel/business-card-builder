@@ -1,0 +1,21 @@
+/* kojima dark palette — linked by render.js after theme.css when mode is dark.
+   Overrides only custom properties; no rules of its own. */
+
+html[data-mode="dark"] body {
+  --ink: #e8e4d9;
+  --paper: #22211e;
+  --card: #2a2926;
+  --muted-ink: #aaa596;
+  --muted-fill: #363430;
+  --rule: #4a4740;
+  --accent: #ff4d00;
+  --accent-text: #ff6a2b; /* lighter orange keeps small accent text ≥4.5:1 on the grey card */
+  --sheet-bg: var(--paper);
+  --body-weight: 380;   /* light-on-dark text spreads */
+  /* Deliberately inverted QR tile (orange on near-black); modern phone
+     scanners read it, some older ones may not */
+  --qr-fg: var(--accent);
+  --qr-bg: #1b1a18;
+  --qr-cell-bg: #1b1a18;
+  --qr-label: var(--accent);
+}
